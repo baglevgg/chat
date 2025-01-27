@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* General Variables */
+        :root {
+            --primary-color: #6c63ff;
+            --bg-dark: #121212;
+            --bg-light: #ffffff;
+            --text-dark: #ffffff;
+            --text-light: #000000;
+            --input-bg-dark: #2e2e2e;
+            --input-bg-light: #f7f7f7;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: var(--text-dark);
+            background-color: var(--bg-dark);
+        }
+
+        @media (prefers-color-scheme: light) {
+            body {
+                background-color: var(--bg-light);
+                color: var(--text-light);
+            }
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+            background-color: #1e1e1e;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        @media (prefers-color-scheme: light) {
+            .container {
+                background-color: var(--bg-light);
+            }
+        }
+
+        .section {
+            padding: 20px;
+            text-align: center;
+            display: block;
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 14px;
+            color: #b3b3b3;
+        }
+
+        input[type="email"], input[type="password"], input[type="text"] {
+            width: 90%;
+            padding: 12px;
+            margin-top: 10px;
+            border: 1px solid var(--primary-color);
+            border-radius: 8px;
+            font-size: 14px;
+            background-color: #ffffff;
+            color: black;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .login-btn, .send-link-btn, .confirm-btn {
+            background-color: var(--primary-color);
+            color: #ffffff;
+        }
+
+        .login-btn:hover, .send-link-btn:hover, .confirm-btn:hover {
+            background-color: #524ccc;
+        }
+
+        .forgot-password-btn {
+            background-color: transparent;
+            color: var(--text-dark);
+            font-size: 14px;
+            margin-top: 1px;
+            cursor: pointer;
+            text-decoration: none; 
+        }
+
+        @media (prefers-color-scheme: light) {
+            .forgot-password-btn {
+                color: var(--text-light);
+            }
+        }
+
+        .back-btn {
+            background-color: transparent;
+            color: var(--text-dark);
+            font-size: 14px;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+
+        .profile-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .profile-img {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: 2px solid var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .action-btn {
+            margin-top: 10px;
+            font-size: 16px;
+        }
+
+        .cancel-btn {
+            color: red;
+        }
+
+        .send-link-btn {
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Login Section -->
+        <div class="section" id="login-section">
+            <h2>Login to G-Chat</h2>
+            <p>Enter your email and password to access your account.</p>
+
+            <input type="email" id="login-email" placeholder="Email" required>
+            <input type="password" id="login-password" placeholder="Password" required>
+            
+            <button class="login-btn" id="login-btn">Login</button>
+
+            <button class="forgot-password-btn" id="forgot-password-btn">Forgot Password?</button>
+           <!-- Registration Link -->
+<p><a href="register.html" class="forgot-password-btn">Don't have an account?</a></p>
+
+        </div>
+
+        <!-- Forgot Password Section -->
+        <div class="section" id="forgot-password-section" style="display:none;">
+            <h2>Forgot Your Password?</h2>
+            <p>Enter your email to receive a password reset link.</p>
+            <input type="email" id="forgot-email" placeholder="Email" required>
+            <button class="send-link-btn" id="send-link-btn">Send Link</button>
+            <button class="back-btn" id="back-btn-forgot">Back</button>
+        </div>
+
+        <!-- Profile Verification Section -->
+        <div class="section" id="profile-verification-section" style="display:none;">
+            <h2>Are you this user?</h2>
+            <div class="profile-section">
+                <img src="" alt="User Image" class="profile-img" id="profile-img">
+                <p id="username-display">Username</p>
+            </div>
+            <button class="confirm-btn" id="confirm-btn">Yes, it's me</button>
+            <button class="cancel-btn" id="cancel-btn">I'm not this</button>
+        </div>
+    </div>
+
+    <script>
+        const loginBtn = document.getElementById('login-btn');
+        const forgotPasswordBtn = document.getElementById('forgot-password-btn');
+        const registerLink = document.getElementById('register-link');
+        const backBtnForgot = document.getElementById('back-btn-forgot');
+        const sendLinkBtn = document.getElementById('send-link-btn');
+        const forgotPasswordSection = document.getElementById('forgot-password-section');
+        const loginSection = document.getElementById('login-section');
+        const profileVerificationSection = document.getElementById('profile-verification-section');
+        const profileImg = document.getElementById('profile-img');
+        const usernameDisplay = document.getElementById('username-display');
+        const confirmBtn = document.getElementById('confirm-btn');
+        const cancelBtn = document.getElementById('cancel-btn');
+
+        // Show forgot password section
+        forgotPasswordBtn.addEventListener('click', () => {
+            loginSection.style.display = 'none';
+            forgotPasswordSection.style.display = 'block';
+        });
+
+        // Back to login section from forgot password
+        backBtnForgot.addEventListener('click', () => {
+            forgotPasswordSection.style.display = 'none';
+            loginSection.style.display = 'block';
+        });
+
+        // Handle send link button
+        sendLinkBtn.addEventListener('click', () => {
+            const email = document.getElementById('forgot-email').value;
+            if (email) {
+                forgotPasswordSection.style.display = 'none';
+                profileVerificationSection.style.display = 'block';
+                // Here you would fetch the user info from backend
+                profileImg.src = 'https://via.placeholder.com/90'; // Placeholder for profile image
+                usernameDisplay.textContent = 'User123'; // Example username
+            }
+        });
+
+        // Back to login page from profile verification
+        cancelBtn.addEventListener('click', () => {
+            profileVerificationSection.style.display = 'none';
+            loginSection.style.display = 'block';
+        });
+
+        // Confirm profile verification
+        confirmBtn.addEventListener('click', () => {
+            
+            // Send reset password link (this part should be integrated with backend)
+            profileVerificationSection.style.display = 'none';
+            loginSection.style.display = 'block';
+        });
+
+        // Show registration page
+        registerLink.addEventListener('click', () => {
+            
+            // Add redirect or toggle registration page functionality here
+        });
+    </script>
+</body>
+</html>
