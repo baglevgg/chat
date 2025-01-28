@@ -3,273 +3,251 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>G-Chat Home Page</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Nexorya - Your Smart Chat Experience</title>
     <style>
-        /* Global Styles */
-        body {
-            font-family: 'Inter', sans-serif;
+        /* General Reset */
+        body, h1, p, ul {
             margin: 0;
             padding: 0;
-            background-color: #F7F8FA;
-            color: #333;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+            box-sizing: border-box;
         }
 
-        /* Navigation Bar */
-        .nav-bar {
+        body {
+            background: #f9f9f9;
+            color: #333;
+        }
+
+        /* Navbar */
+        .navbar {
             position: fixed;
-            bottom: 0;
+            top: 0;
+            left: 0;
             width: 100%;
-            height: 70px;
-            background-color: #FFFFFF;
             display: flex;
-            justify-content: space-around;
             align-items: center;
-            box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: #6B6B6B;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .nav-item:hover {
-            color: #0078FF;
-        }
-
-        .nav-item.active {
-            color: #0078FF;
-        }
-
-        .nav-item i {
-            font-size: 24px;
-            margin-bottom: 5px;
-        }
-
-        .nav-item span {
-            font-size: 12px;
-        }
-
-        /* Main Content */
-        .main-content {
-            flex: 1;
-            padding: 20px;
-            padding-bottom: 80px; /* For the nav bar */
-            overflow-y: auto;
-            transition: padding-bottom 0.3s ease;
-        }
-
-        /* Header Section */
-        .chat-header {
-            display: flex;
             justify-content: space-between;
-            align-items: center;
-            background-color: #FFFFFF;
-            padding: 15px 20px;
-            border-radius: 8px;
-            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.05);
-            margin-bottom: 20px;
+            padding: 20px 50px;
+            transition: background 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            z-index: 1000;
+            height: 40px; /* Ensure consistent navbar height */
         }
 
-        .chat-header .title {
-            font-size: 22px;
-            font-weight: 600;
-            color: #333;
+        .navbar.transparent {
+            background: transparent;
+            box-shadow: none;
         }
 
-        .chat-header .header-right {
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar .logo {
             display: flex;
             align-items: center;
-            gap: 15px;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #007bff;
         }
 
-        .chat-header .search-bar {
-            display: flex;
-            align-items: center;
-            border: 1px solid #E1E1E1;
-            border-radius: 30px;
-            padding: 5px 10px;
-            background-color: #F7F8FA;
-            transition: all 0.3s ease;
-        }
-
-        .chat-header .search-bar.active {
-            width: 300px;
-        }
-
-        .chat-header .search-icon {
-            font-size: 18px;
-            color: #0078FF;
+        .navbar .logo img {
+            width: 40px;
             margin-right: 10px;
         }
 
-        /* User List Section */
-        .user-list {
-            padding: 10px;
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        .navbar ul li {
+            display: inline;
+        }
+
+        .navbar ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .navbar ul li a:hover {
+            color: #007bff;
+        }
+
+        /* Prevent overlap of content below the navbar */
+        .spacer {
+            height: 80px; /* Matches the navbar height */
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 100px 60px 60px;
+        }
+
+        .hero-text {
+            max-width: 450px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #007bff, #ff4081);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        /* Login Form */
+        form {
             display: flex;
             flex-direction: column;
+        }
+
+        input {
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .buttons {
+            display: flex;
             gap: 15px;
         }
 
-        .user-item {
-            display: flex;
-            align-items: center;
-            padding: 15px;
-            background-color: #FFFFFF;
-            border-radius: 12px;
-            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
+        .buttons button {
+            flex: 1;
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
             cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s ease;
         }
 
-        .user-item:hover {
-            background-color: #F0F4FF;
-            transform: scale(1.02);
+        .buttons button.create {
+            background: #ff4081;
         }
 
-        .user-item .profile-pic {
-            position: relative;
-            width: 50px;
-            height: 50px;
+        .buttons button:hover {
+            opacity: 0.9;
         }
 
-        .user-item img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
+        /* Download Buttons */
+        .download-buttons img {
+            width: 140px;
+            margin: 10px 5px;
         }
 
-        .user-item .green-dot {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background-color: #4CAF50;
-            border: 2px solid #FFFFFF;
+        /* Chat Preview Image */
+        .hero-image img {
+            width: 400px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
 
-        .user-details {
-            margin-left: 15px;
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
         }
 
-        .user-name {
-            font-size: 16px;
-            font-weight: 600;
+        .footer-links a {
+            margin: 0 10px;
+            text-decoration: none;
             color: #333;
         }
 
-        .user-status {
-            font-size: 14px;
-            color: #999;
+        .powered {
+            margin-top: 10px;
+            font-weight: bold;
         }
 
-        /* Media Queries */
-        @media (min-width: 768px) {
-            .nav-bar {
-                position: fixed;
-                top: 0;
-                left: 0;
-                height: 100%;
-                flex-direction: column;
-                justify-content: flex-start;
-            }
-
-            .main-content {
-                margin-left: 80px;
-                padding-bottom: 20px;
-            }
-
-            .nav-item span {
-                display: none;
-            }
-
-            .chat-header {
-                padding: 20px 30px;
-            }
+        /* Nexorya Text in Rainbow Color */
+        .nexorya {
+            font-size: 2.0rem;
+            font-weight: bold;
+            background: linear-gradient(90deg, #007bff, #ff4081);
+            -webkit-background-clip: text;
+            color: transparent;
         }
     </style>
 </head>
 <body>
-    <!-- Main Content -->
-    <div class="main-content">
-        <!-- Header Section -->
-        <div class="chat-header">
-            <div class="title">Chats</div>
-            <div class="header-right">
-                <div class="search-bar">
-                    <i class="fas fa-search search-icon"></i>
-                    <input type="text" placeholder="Search..." class="search-input" id="searchBar">
+    <!-- Navbar -->
+    <nav class="navbar transparent">
+        <div class="logo">
+            <img src="https://i.ibb.co/28PVYqk/erasebg-transformed.png" alt="Logo"> 
+            G-Chat
+        </div>
+       
+    </nav>
+
+    <!-- Spacer to prevent content overlap -->
+    <div class="spacer"></div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-text">
+            <h1><span class="gradient-text">Your Smart Chat</span> with <br> <span class="gradient-text">AI-Powered Conversations</span></h1>
+            <p>Stay connected and chat smarter with G-Chat.</p>
+            <form onsubmit="return validateForm()">
+                <input type="text" id="email" placeholder="Email or phone number">
+                <input type="password" id="password" placeholder="Password">
+                <div class="buttons">
+                    <button type="submit">Log in</button>
+                    <button type="button" class="create" onclick="alert('Create Account Clicked!')">Create Account</button>
                 </div>
-                <i class="fas fa-plus search-icon"></i>
-            </div>
+            </form>
         </div>
 
-        <!-- User List Section -->
-        <div class="user-list">
-            <div class="user-item">
-                <div class="profile-pic">
-                    <img src="https://via.placeholder.com/50" alt="User Profile Picture">
-                    <div class="green-dot"></div>
-                </div>
-                <div class="user-details">
-                    <div class="user-name">John Doe</div>
-                    <div class="user-status">Online</div>
-                </div>
-            </div>
+        <div class="hero-image">
+            <img src="https://via.placeholder.com/400x600" alt="Chat App Preview">
+        </div>
+    </section>
 
-            <div class="user-item">
-                <div class="profile-pic">
-                    <img src="https://via.placeholder.com/50" alt="User Profile Picture">
-                    <div class="green-dot"></div>
-                </div>
-                <div class="user-details">
-                    <div class="user-name">Jane Smith</div>
-                    <div class="user-status">Online</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Navigation Bar -->
-    <div class="nav-bar">
-        <div class="nav-item active">
-            <i class="fas fa-home"></i>
-        </div>
-        <div class="nav-item">
-            <i class="fas fa-user-friends"></i>
-        </div>
-        <div class="nav-item">
-            <i class="fas fa-users"></i>
-        </div>
-        <div class="nav-item">
-            <i class="fas fa-user-circle"></i>
-        </div>
-    </div>
+    <!-- Footer -->
+    <footer>
+        <p>© Nexorya 2025</p>
+        <p class="powered">from <span class="nexorya">Nexorya</span></p>
+    </footer>
 
     <script>
-        // Toggle Search Bar Animation
-        const searchIcon = document.querySelector('.search-icon');
-        const searchBar = document.getElementById('searchBar');
-        searchIcon.addEventListener('click', () => {
-            searchBar.classList.toggle('active');
-            if (searchBar.classList.contains('active')) {
-                searchBar.focus();
+        window.addEventListener("scroll", function() {
+            const navbar = document.querySelector(".navbar");
+            if (window.scrollY > 50) {
+                navbar.classList.add("scrolled");
+                navbar.classList.remove("transparent");
+            } else {
+                navbar.classList.add("transparent");
+                navbar.classList.remove("scrolled");
             }
         });
+
+        function validateForm() {
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            if (email === "" || password === "") {
+                alert("Please fill in all fields.");
+                return false;
+            }
+        }
     </script>
 </body>
 </html>
