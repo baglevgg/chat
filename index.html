@@ -22,7 +22,7 @@
             min-height: 100vh;
         }
 
-        /* Navbar */
+        /* Navbar - Transparent by default, visible on scroll */
         .navbar {
             position: fixed;
             top: 0;
@@ -34,6 +34,10 @@
             padding: 15px 20px;
             transition: background 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
             z-index: 1000;
+            background: transparent;
+        }
+
+        .navbar.scrolled {
             background: rgba(255, 255, 255, 0.95);
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
@@ -151,14 +155,12 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
-        /* Footer */
+        /* Footer (No Background) */
         footer {
             text-align: center;
             padding: 15px;
             font-size: 0.9rem;
             margin-top: auto;
-            background: #fff;
-            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
         }
 
         .powered {
@@ -200,7 +202,7 @@
 <body>
 
     <!-- Navbar -->
-    <nav class="navbar">
+    <nav class="navbar" id="navbar">
         <div class="logo">
             <img src="https://i.ibb.co/28PVYqk/erasebg-transformed.png" alt="Logo"> 
             N-Chat
@@ -221,28 +223,38 @@
                 
                 <!-- Links below password field -->
                 <div class="links">
-                
+                   
                     <a href="forgot.html">Forgot Password?</a>
+                    <a href="create.html">create Account</a>
                 </div>
 
                 <div class="buttons">
                     <button type="submit">Log in</button>
-                    <button type="button" class="create" onclick="alert('Create Account Clicked!')">Create Account</button>
+<!--                     <button type="button" class="create" onclick="alert('Create Account Clicked!')">Create Account</button> -->
                 </div>
             </form>
         </div>
 
        
-        
+   
     </section>
 
-    <!-- Footer -->
+    <!-- Footer (No Background) -->
     <footer>
-       
         <p class="powered">from <span class="nexorya">Nexorya</span></p>
     </footer>
 
     <script>
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', function() {
+            var navbar = document.getElementById("navbar");
+            if (window.scrollY > 50) {
+                navbar.classList.add("scrolled");
+            } else {
+                navbar.classList.remove("scrolled");
+            }
+        });
+
         function validateForm() {
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
